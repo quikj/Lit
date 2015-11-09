@@ -1,0 +1,48 @@
+<ion-view title="Lit">
+  <ion-side-menus enable-menu-with-back-views="true">
+
+    <ion-pane ion-side-menu-content drag-content="true">
+      <ion-nav-bar class="bar-dark nav-title-slide-ios7">
+        <ion-nav-buttons side="left">
+          <a href="#/home" class="button button-icon icon ion-arrow-left-c"></a>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+          <button class="button" ng-click="openMenu()">Rate It!</button>
+        </ion-nav-buttons>
+      </ion-nav-bar>
+
+      <ion-nav-view class="metal-background">
+        <div id="myheader" class="bar bar-subheader" ng-class="{ 'stoph': params.barAvg < 34, 'slowh' : params.barAvg >= 34 && params.barAvg < 67, 'goh' : params.barAvg >=67 }">
+          <div class="title">{{params.barName}}</div>
+        </div>
+        <div id="myfooter" class="bar bar-footer" ng-class="{ 'stoph': params.barAvg < 34, 'slowh' : params.barAvg >= 34 && params.barAvg < 67, 'goh' : params.barAvg >=67 }">
+          <div class="title">{{params.barName}}</div>
+        </div>
+      </ion-nav-view>
+    </ion-pane>
+
+    <ion-side-menu side="right">
+      <ion-header-bar class="bar bar-header bar-dark">
+        <h1 class="title">Is it Lit?</h1>
+      </ion-header-bar>
+
+      <ion-content class = "has-header" style="background-color: #000000;">
+        <br>
+        <br>
+        <div align="center">
+          <i class="icon ion-record stop larger black-back button-clear" ng-click="rateRed()"></i>
+        </div>
+        <div align="center">
+          <i class="icon ion-record slow larger black-back button-clear" ng-click="rateYellow()"></i>
+        </div>
+        <div align="center">
+          <i class="icon ion-record go larger black-back button-clear" ng-click="rateGreen()"></i>
+        </div>
+      </ion-content>
+    </ion-side-menu>
+
+  </ion-side-menus>
+
+
+</ion-view>
+

@@ -1,0 +1,23 @@
+/* Empty. Add your own CSS if you like */
+.stop{color: red !important}
+.slow{color: yellow !important}
+.go{color: green !important}
+.stoph{background-color: red !important}
+.slowh{background-color: yellow !important}
+.goh{background-color: green !important}
+.menu-black{background-color: black !important}
+.black-back{
+  background-color: black !important
+}
+.metal-background{
+  background-image: url("../img/metal.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.gray-background{
+  background-color: transparent !important;
+}
+.larger {
+  font-size: 150px;
+}
