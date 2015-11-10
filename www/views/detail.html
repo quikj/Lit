@@ -12,11 +12,11 @@
       </ion-nav-bar>
 
       <ion-nav-view class="metal-background">
-        <div id="myheader" class="bar bar-subheader" ng-class="{ 'stoph': params.barAvg < 34, 'slowh' : params.barAvg >= 34 && params.barAvg < 67, 'goh' : params.barAvg >=67 }">
-          <div class="title">{{params.barName}}</div>
+        <div id="myheader" class="bar bar-subheader" ng-class="{ 'stoph': bar.avgRating < 34, 'slowh' : bar.avgRating >= 34 && bar.avgRating < 67, 'goh' : bar.avgRating >=67 }">
+          <div class="title">{{bar.Name}}</div>
         </div>
-        <div id="myfooter" class="bar bar-footer" ng-class="{ 'stoph': params.barAvg < 34, 'slowh' : params.barAvg >= 34 && params.barAvg < 67, 'goh' : params.barAvg >=67 }">
-          <div class="title">{{params.barName}}</div>
+        <div id="myfooter" class="bar bar-footer" ng-class="{ 'stoph': bar.avgRating < 34, 'slowh' : bar.avgRating >= 34 && bar.avgRating < 67, 'goh' : bar.avgRating >=67 }">
+          <div class="title">{{bar.Name}}</div>
         </div>
       </ion-nav-view>
     </ion-pane>

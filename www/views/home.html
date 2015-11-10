@@ -9,7 +9,7 @@
             </label>
           </div>
           <ion-item class="item-divider"></ion-item>
-            <ion-item ng-repeat="bar in barList track by bar.objectId" class="item-icon-right" ui-sref="detail({objectId: bar.objectId, barName: bar.Name, barAvg: bar.avgRating})">
+            <ion-item ng-repeat="bar in barList track by bar.objectId" class="item-icon-right" ui-sref="detail({objectId: bar.objectId})">
                 <div style="text-transform:capitalize;">
                     {{bar.Name}}
                     <i class="icon ion-ios-flame" ng-class="{ 'stop': bar.avgRating < 34, 'slow' : bar.avgRating >= 34 && bar.avgRating < 67, 'go' : bar.avgRating >=67 }"></i>

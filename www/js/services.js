@@ -33,6 +33,18 @@ angular.module('AppServices',[])
                         console.log('getAllBars', response);
                         return response.data;
                     });
+            },
+
+            //grab single bar by
+            getBarById: function getBarByID(_ID) {
+                var settings = {
+                  headers: authenticationHeaders
+                };
+                return $http.get(baseURL + 'classes/Bar/' + _ID, settings)
+                  .then(function(response) {
+                      console.log('getBarByID', response);
+                      return response.data;
+                  });
             }
         }
     });
