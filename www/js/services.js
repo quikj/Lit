@@ -38,13 +38,30 @@ angular.module('AppServices',[])
             //grab single bar by
             getBarById: function getBarByID(_ID) {
                 var settings = {
-                  headers: authenticationHeaders
+                    headers: authenticationHeaders
                 };
                 return $http.get(baseURL + 'classes/Bar/' + _ID, settings)
                   .then(function(response) {
                       console.log('getBarByID', response);
                       return response.data;
                   });
+            },
+
+            //Upload  user rating to Parse
+            rateBar: function rateBar(_params) {
+                var settings = {
+                    headers: authenticationHeaders
+                };
+                var dataObject = {
+                    "barID": _params.barID,
+                    "userRating": _params.userRating
+                };
+                var dataObjectString = JSON.stringify(dataObject);
+                return $http.post(baseURL + 'classes/UserRating', dataObjectString, settings)
+                  .then(function (response) {
+                      console.log('rateBar', response);
+                      return response.data;
+                  })
             }
         }
     });
