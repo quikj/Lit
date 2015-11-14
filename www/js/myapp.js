@@ -2,7 +2,7 @@ myApp = angular.module('Lit', ['ionic','AppControllers']);
 
 myApp.config(function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise("/signup");
+    $urlRouterProvider.otherwise("/login");
     $stateProvider
 
         .state('login', {

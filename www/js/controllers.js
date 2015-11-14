@@ -1,7 +1,7 @@
 
 angular.module('AppControllers', ['AppServices'])
-    .controller('loginCtrl', function ($scope, ParseHttpService) {
-
+    .controller('loginCtrl', function ($scope, $sce, ParseHttpService) {
+        $scope.loginImage = $sce.trustAsResourceUrl('img/light.jpeg')
     })
     .controller('signupCtrl', function ($scope, ParseHttpService) {
 
@@ -10,8 +10,9 @@ angular.module('AppControllers', ['AppServices'])
         $scope.barList = [];
         $scope.value = true;
         $scope.view = true;
-        $scope.$on("$ionicView.enter",function(){
+        $scope.$on("$ionicView.enter",function(){    //performs these actoins upon loading the home page
           $ionicSlideBoxDelegate.update();
+          populateList();
         });
 
         //grab all bar names and display their current rating

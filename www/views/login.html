@@ -1,22 +1,24 @@
-<ion-view title="Lit">
-    <div id="myheader" class="bar bar-subheader">
-        <h2 class="title">Login</h2>
-    </div>
-    <ion-content padding="true" class="has-header">
+<ion-view title="Lit" class="metal-background" hide-nav-bar="true">
+    <ion-content padding="true" scroll="false">
         <form class="list">
             <ion-list>
-                <label class="item item-input">
+              <div align="center">
+                <img style="height: 300px" ng-src="{{loginImage}}">
+              </div>
+                <label class="item item-input transparent-background">
                     <span class="input-label">Username</span>
                     <input type="text" placeholder="">
                 </label>
-                <label class="item item-input">
+                <label class="item item-input transparent-background">
                     <span class="input-label">Password</span>
                     <input type="password" placeholder="">
                 </label>
             </ion-list>
             <div class="spacer" style="height: 40px;"></div>
-            <a href="#/home" class="button button-stable button-block ">Log in</a>
-            <a class="button button-positive button-clear button-block ">Or create an account</a>
+            <a href="#/home" class="button button-stable button-block transparent-background">Log in</a>
+          <div align="center">
+            <a href="#/signup" class="button button-outline button-light">Create an account</a>
+          </div>
         </form>
     </ion-content>
 </ion-view>
