@@ -6,9 +6,13 @@ angular.module('AppControllers', ['AppServices'])
     .controller('signupCtrl', function ($scope, ParseHttpService) {
 
     })
-    .controller('homeCtrl', function ($scope, $window, ParseHttpService) {
+    .controller('homeCtrl', function ($scope, $window, $ionicSlideBoxDelegate, ParseHttpService) {
         $scope.barList = [];
         $scope.value = true;
+        $scope.view = true;
+        $scope.$on("$ionicView.enter",function(){
+          $ionicSlideBoxDelegate.update();
+        });
 
         //grab all bar names and display their current rating
         function populateList() {
