@@ -21,8 +21,9 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             controller: "homeCtrl"
         })
         .state('detail', {
-            url: "detail/:objectId/:barName/:barAvg",
+            url: "detail/:objectId",
             templateUrl: "views/detail.html",
-            controller: "detailCtrl"
+            controller: "detailCtrl",
+            cache: false
         });
 });
