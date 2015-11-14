@@ -27,7 +27,7 @@
                 </div>
             </ion-item>
             <ion-slide-box ng-show="view" on-slide-changed="slideChanged()" show-pager="false">
-              <ion-slide ng-repeat="bar in barList track by bar.objectId">
+              <ion-slide ng-repeat="bar in barList track by bar.objectId" ui-sref="detail({objectId: bar.objectId})">
                 <div class="card">
                   <div class="item item-text-wrap item-icon-right">
                     <div class="item item-divider" ng-class="{ 'stoph': bar.avgRating < 34, 'slowh' : bar.avgRating >= 34 && bar.avgRating < 67, 'goh' : bar.avgRating >=67 }"></div>
