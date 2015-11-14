@@ -40,10 +40,11 @@ angular.module('AppControllers', ['AppServices'])
         //User rates the bar
         $scope.rateBar = function(_rating) {
             var ratingObject = {
-                "barID": $state.params.objectID,
+                "barID": $scope.bar.objectId,
                 "userRating": _rating
               };
-            ParseHttpService.rateBar(_rating);
+            ParseHttpService.rateBar(ratingObject);
+            $ionicSideMenuDelegate.toggleRight();   //close the side menue after rating
         }
 
     });
