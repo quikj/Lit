@@ -27,3 +27,6 @@
 .larger {
   font-size: 150px;
 }
+.angular-google-map-container {
+  height: 100%;
+}

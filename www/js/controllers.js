@@ -36,7 +36,7 @@ angular.module('AppControllers', ['AppServices'])
             console.log(_data);
             $scope.bar = _data;
         });
-
+        $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
         //User rates the bar
         $scope.rateBar = function(_rating) {
             var ratingObject = {
@@ -45,6 +45,7 @@ angular.module('AppControllers', ['AppServices'])
               };
             ParseHttpService.rateBar(ratingObject);
             $ionicSideMenuDelegate.toggleRight();   //close the side menue after rating
-        }
+        };
+        $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
 
     });
