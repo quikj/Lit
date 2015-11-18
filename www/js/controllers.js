@@ -1,12 +1,51 @@
 
 angular.module('AppControllers', ['AppServices'])
-    .controller('loginCtrl', function ($scope, $sce, ParseHttpService) {
-        $scope.loginImage = $sce.trustAsResourceUrl('img/light.jpeg')
+    .controller('loginCtrl', function ($scope, $state, $sce, $timeout, ParseHttpService) {
+        $scope.loginImage = $sce.trustAsResourceUrl('img/light.jpeg');
+        $scope.credentials = {};
+        $scope.doLoginAction = function () {
+          ParseHttpService.login($scope.credentials).then(function (_user) {
+            $timeout(function () {
+              $state.go('app.home', {});
+             console.log("user", _user);
+            }, 2);
+
+          }, function (_error) {
+            alert("Login Error " + (_error.message ? _error.message : _error.data.error));
+          });
+        }
     })
-    .controller('signupCtrl', function ($scope, ParseHttpService) {
+    .controller('signupCtrl', function ($scope, $state, $timeout, ParseHttpService) {
+        $scope.accountItem = {
+          email: "",
+          username: "",
+          password: ""
+        };
+        $scope.createAccount = function () {
+          ParseHttpService.createUser($scope.accountItem)
+            .then(function accountCreated() {
+              alert('Account Created');
+              var credentials = {
+                username: $scope.accountItem.username,
+                password: $scope.accountItem.password
+              };
+              ParseHttpService.login(credentials).then(function (_user) {
+                $timeout(function () {
+                  $state.go('app.home', {});
+                  console.log("user", _user);
+                }, 2);
+
+              }, function (_error) {
+                alert("Login Error " + (_error.message ? _error.message : _error.data.error));
+              });
+              $scope.accountItem = {};
+            }, function justIncase(_error) {
+              $scope.accountItem = {};
+            });
+        }
 
     })
-    .controller('homeCtrl', function ($scope, $window, $ionicSlideBoxDelegate, ParseHttpService) {
+    .controller('homeCtrl', function ($scope, $state, $timeout, $window, $ionicSlideBoxDelegate, ParseHttpService, CurrentUser) {
         $scope.barList = [];
         $scope.value = true;
         $scope.view = true;
@@ -21,9 +60,7 @@ angular.module('AppControllers', ['AppServices'])
                $scope.barList = _listData.results;
             });
         }
-        ParseHttpService.login().then(function (_loggedInUser) {
-            return populateList();
-        })
+        populateList();
     })
     .controller('detailCtrl', function ($scope, $state, $ionicSideMenuDelegate, ParseHttpService) {
         $scope.params = $state.params;

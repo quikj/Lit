@@ -8,16 +8,16 @@
               <br>
               <br>
                 <label class="item item-input transparent-background">
-                    <input type="text" placeholder="Email">
+                    <input type="text" ng-model="accountItem.email" placeholder="Email">
                 </label>
                 <label class="item item-input transparent-background">
-                    <input type="text" placeholder="Username">
+                    <input type="text" ng-model="accountItem.username" placeholder="Username">
                 </label>
                 <label class="item item-input transparent-background">
-                    <input type="text" placeholder="Password">
+                    <input type="password" ng-model="accountItem.password" placeholder="Password">
                 </label>
             </ion-list>
-            <a href="#/home" class="button button-stable button-block ">Sign up</a>
+            <button ng-click="createAccount()" class="button button-stable button-block ">Sign up</button>
         </form>
     </ion-content>
 </ion-view><ion-item class="item-divider"></ion-item>

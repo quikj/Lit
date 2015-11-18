@@ -1,28 +1,44 @@
 angular.module('AppServices',[])
-    .service('ParseHttpService', function ($http) {
+    .service('ParseHttpService', function ($http, $q) {
         var baseURL = "https://api.parse.com/1/";
         var authenticationHeaders = PARSE_HEADER_CREDENTIALS;
+        var CurrentUser = null;
 
         return {
             //log the user into Parse
-            login: function () {
-                var credentials = {
-                    "username": "admin",
-                    "password": "test"
-                };
+            login: function (credentials) {
+
                 var settings = {
-                    method: 'GET',
-                    url: baseURL + 'login',
                     headers: authenticationHeaders,
-                    params: credentials
+                    params: {
+                      "username": (credentials && credentials.username),
+                      "password": (credentials && credentials.password)
+                    }
                 };
-                return $http(settings)
+                return $http.get(baseURL + 'login', settings)
                     .then(function (response) {
                         console.log('login', response);
+                        CurrentUser = response.data;
                         return response.data;
                     });
             },
-
+            //create new user from input fields
+            createUser: function (_params) {
+                var settings = {
+                  headers: authenticationHeaders
+                };
+                var dataObject = {
+                  "username": _params.username,
+                  "password": _params.password,
+                  "email": _params.email
+                };
+                var dataObjectString = JSON.stringify(dataObject);
+              return $http.post(baseURL + 'classes/_User', dataObjectString, settings)
+                .then(function (response) {
+                  console.log('createUser', response);
+                  return response.data;
+                });
+            },
             //grab all bars from Parse
             getAllBars: function getAllBars() {
                 var settings = {
@@ -62,6 +78,14 @@ angular.module('AppServices',[])
                       console.log('rateBar', response);
                       return response.data;
                   })
+            },
+            getCurrentUser: function () {
+              if (CurrentUser) {
+                return $q.when(CurrentUser);
+              } else {
+                return $q.reject("NO USER");
+              }
             }
+
         }
     });

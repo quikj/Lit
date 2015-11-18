@@ -7,17 +7,17 @@
               </div>
                 <label class="item item-input transparent-background">
                     <span class="input-label">Username</span>
-                    <input type="text" placeholder="">
+                    <input type="text" ng-model="credentials.username" placeholder="">
                 </label>
                 <label class="item item-input transparent-background">
                     <span class="input-label">Password</span>
-                    <input type="password" placeholder="">
+                    <input type="password" ng-model="credentials.password" placeholder="">
                 </label>
             </ion-list>
             <div class="spacer" style="height: 40px;"></div>
-            <a href="#/home" class="button button-stable button-block transparent-background">Log in</a>
+            <button ng-click="doLoginAction()" class="button button-stable button-block transparent-background">Log in</button>
           <div align="center">
-            <a href="#/signup" class="button button-outline button-light">Create an account</a>
+            <button ui-sref="signup" class="button button-outline button-light">Create an account</button>
           </div>
         </form>
     </ion-content>
