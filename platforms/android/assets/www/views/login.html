@@ -1,0 +1,26 @@
+<ion-view title="Lit" class="metal-background" hide-nav-bar="true">
+    <ion-content padding="true" scroll="false">
+        <form class="list">
+            <ion-list>
+              <div align="center">
+                <img style="height: 300px" ng-src="{{loginImage}}">
+              </div>
+                <label class="item item-input transparent-background">
+                    <span class="input-label">Username</span>
+                    <input type="text" ng-model="credentials.username" placeholder="">
+                </label>
+                <label class="item item-input transparent-background">
+                    <span class="input-label">Password</span>
+                    <input type="password" ng-model="credentials.password" placeholder="">
+                </label>
+            </ion-list>
+            <div class="spacer" style="height: 40px;"></div>
+            <button ng-click="doLoginAction()" class="button button-stable button-block transparent-background">Log in</button>
+            <div align="center">
+            <button class="button button-small button-border icon-left ion-social-facebook button-positive-900 button button-positive" ng-click="login()">Login with Facebook</button>
+          
+            <button ui-sref="signup" class="button button-stable button-block transparent-background">Create an account</button>
+          </div>
+        </form>
+    </ion-content>
+</ion-view>

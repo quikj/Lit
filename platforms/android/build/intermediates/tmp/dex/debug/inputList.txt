@@ -1,0 +1,5 @@
+/Users/rockndo/Documents/Lit/platforms/android/build/intermediates/classes/debug
+/Users/rockndo/Documents/Lit/platforms/android/build/intermediates/pre-dexed/debug/bolts-android-1.1.2-1b2ebc4399627a9c6ac79da6da07f8b09ee13bd5.jar
+/Users/rockndo/Documents/Lit/platforms/android/build/intermediates/pre-dexed/debug/classes-856522beffd4ae3ec1303cd00b8691c1b1c7838a.jar
+/Users/rockndo/Documents/Lit/platforms/android/build/intermediates/pre-dexed/debug/classes-7391582a28993478baebdd8be2e7138c8da4dd7c.jar
+/Users/rockndo/Documents/Lit/platforms/android/build/intermediates/pre-dexed/debug/android-support-v4-a64df9aa2b8aa26b29c0e05036b8d3f3914eb016.jar
