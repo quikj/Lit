@@ -1,6 +1,6 @@
 
-angular.module('AppControllers', ['AppServices'])
-    .controller('loginCtrl', function ($scope, $state, $sce, $timeout, ParseHttpService) {
+angular.module('AppControllers', ['AppServices','ionic','ngCordova'])
+    .controller('loginCtrl', function ($scope, $state, $sce, $timeout, $cordovaFacebook, ParseHttpService) {
         $scope.loginImage = $sce.trustAsResourceUrl('img/light.jpeg');
         $scope.credentials = {};
         $scope.doLoginAction = function () {
@@ -12,6 +12,13 @@ angular.module('AppControllers', ['AppServices'])
 
           }, function (_error) {
             alert("Login Error " + (_error.message ? _error.message : _error.data.error));
+          });
+        }
+
+        $scope.login = function() {
+          $cordovaFacebook.login(["public_profile"]).then(function(data) {
+            console.log(data);
+            $state.go('app.home',{});
           });
         }
     })
