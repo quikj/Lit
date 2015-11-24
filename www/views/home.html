@@ -1,6 +1,11 @@
-<ion-view hide-back-button="true" title="Lit" class="metal-background">
+<ion-view hide-back-button="true" title="Lit {{thing}}" class="metal-background">
+  <ion-nav-buttons side="right">
+    <button class="button">
+      Logout
+    </button>
+  </ion-nav-buttons>
         <ion-content type ="list-inset">
-          <h1 align="center" class="light">U Street</h1>
+          <h1 align="center" class="light">U Street {{thing}}</h1>
           <div class="list list-inset">
             <label class="item item-input">
               <i class="icon ion-search placeholder-icon"></i>
