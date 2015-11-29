@@ -19,10 +19,18 @@
           <div class="title">{{bar.Name}}</div>
         </div>
       </ion-nav-view>
-      <ion-content>
-        <div id="map" data-tap-disabled="true">
-          <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
-        </div>
+      <ion-content class="has-header" padding="true">
+        <br>
+        <br>
+        <div id="map" data-tap-disabled="true"></div>
+        <ion-list>
+          <br>
+          <ion-item>
+            Address
+            Phone #
+            Website
+          </ion-item>
+        </ion-list>
       </ion-content>
     </ion-pane>
 

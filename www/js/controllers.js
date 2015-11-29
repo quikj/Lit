@@ -62,7 +62,7 @@ angular.module('AppControllers', ['AppServices'])
         }
         populateList();
     })
-    .controller('detailCtrl', function ($scope, $state, $ionicSideMenuDelegate, ParseHttpService) {
+    .controller('detailCtrl', function ($scope, $state, $ionicSideMenuDelegate, ParseHttpService, $cordovaGeolocation) {
         $scope.params = $state.params;
 
         $scope.openMenu = function() {  //open Side Menu Rating Stoplight
@@ -73,7 +73,23 @@ angular.module('AppControllers', ['AppServices'])
             console.log(_data);
             $scope.bar = _data;
         });
-        $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+    var options = {timeout: 10000, enableHighAccuracy: true};
+
+    $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+
+      var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+      var mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    }, function(error){
+      console.log("Could not get location");
+    });
         //User rates the bar
         $scope.rateBar = function(_rating) {
             var ratingObject = {
@@ -83,6 +99,5 @@ angular.module('AppControllers', ['AppServices'])
             ParseHttpService.rateBar(ratingObject);
             $ionicSideMenuDelegate.toggleRight();   //close the side menue after rating
         };
-        $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-
     });
+

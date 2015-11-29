@@ -1,4 +1,4 @@
-myApp = angular.module('Lit', ['ionic','AppControllers','uiGmapgoogle-maps', 'AppServices']);
+myApp = angular.module('Lit', ['ionic','AppControllers','uiGmapgoogle-maps', 'AppServices', 'ngCordova']);
 
 myApp.config(function($stateProvider, $urlRouterProvider) {
 
