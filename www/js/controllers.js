@@ -44,6 +44,7 @@ angular.module('AppControllers', ['AppServices'])
             });
         }
 
+
     })
     .controller('homeCtrl', function ($scope, $state, $timeout, $window, $ionicSlideBoxDelegate, ParseHttpService, CurrentUser) {
         $scope.barList = [];
@@ -62,8 +63,9 @@ angular.module('AppControllers', ['AppServices'])
         }
         populateList();
     })
-    .controller('detailCtrl', function ($scope, $state, $ionicSideMenuDelegate, ParseHttpService, $cordovaGeolocation) {
+    .controller('detailCtrl', function ($scope, $ionicLoading, $state, $ionicSideMenuDelegate, ParseHttpService,$ionicPlatform) {
         $scope.params = $state.params;
+        //console.log("I AM ALIVE AND I AM CALLED");
 
         $scope.openMenu = function() {  //open Side Menu Rating Stoplight
             $ionicSideMenuDelegate.toggleRight();
@@ -75,21 +77,40 @@ angular.module('AppControllers', ['AppServices'])
         });
     var options = {timeout: 10000, enableHighAccuracy: true};
 
-    $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+       function initialize(){
 
-      var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-      var mapOptions = {
-        center: latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+          var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
+ 
+        var mapOptions = {
+            center: myLatlng,
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+ 
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+ 
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+            var myLocation = new google.maps.Marker({
+                position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+                map: map,
+                title: "My Location"
+            });
+        });
+ 
+        $scope.map = map;
+        console.log("I AM ALIVE AND I AM CALLED");
       };
+     // $ionicPlatform.ready(initialize);
+     $scope.initMap = function() {
+        // your code here
+        initialize();
+      }
+     //google.maps.event.addDomListener(window, 'load', initialize);
 
-      $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+     
 
-    }, function(error){
-      console.log("Could not get location");
-    });
+      //ionic.Platform.ready(initialize);
         //User rates the bar
         $scope.rateBar = function(_rating) {
             var ratingObject = {
