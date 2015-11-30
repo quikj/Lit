@@ -80,15 +80,15 @@ angular.module('AppControllers', ['AppServices'])
        function initialize(){
 
           var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
- 
+
         var mapOptions = {
             center: myLatlng,
             zoom: 16,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
- 
+
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
- 
+
         navigator.geolocation.getCurrentPosition(function(pos) {
             map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
             var myLocation = new google.maps.Marker({
@@ -97,7 +97,7 @@ angular.module('AppControllers', ['AppServices'])
                 title: "My Location"
             });
         });
- 
+
         $scope.map = map;
         console.log("I AM ALIVE AND I AM CALLED");
       };
@@ -108,9 +108,14 @@ angular.module('AppControllers', ['AppServices'])
       }
      //google.maps.event.addDomListener(window, 'load', initialize);
 
-     
+
 
       //ionic.Platform.ready(initialize);
+      $scope.barInfo = {
+        address: "901 U St NW, Washington, DC 20001",
+        phone: "(202) 560-5045",
+        website: "http://brixtondc.com/"
+      };
         //User rates the bar
         $scope.rateBar = function(_rating) {
             var ratingObject = {
