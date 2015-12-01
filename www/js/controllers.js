@@ -1,5 +1,5 @@
 
-angular.module('AppControllers', ['AppServices'])
+angular.module('AppControllers', ['AppServices','ionic'])
     .controller('loginCtrl', function ($scope, $state, $sce, $timeout, ParseHttpService) {
         $scope.loginImage = $sce.trustAsResourceUrl('img/light.jpeg');
         $scope.credentials = {};
@@ -63,7 +63,7 @@ angular.module('AppControllers', ['AppServices'])
         }
         populateList();
     })
-    .controller('detailCtrl', function ($scope, $ionicLoading, $state, $ionicSideMenuDelegate, ParseHttpService,$ionicPlatform) {
+    .controller('detailCtrl', function ($scope, $ionicLoading, $state, $ionicSideMenuDelegate, $compile, ParseHttpService,$ionicPlatform) {
         $scope.params = $state.params;
         //console.log("I AM ALIVE AND I AM CALLED");
 
@@ -79,36 +79,75 @@ angular.module('AppControllers', ['AppServices'])
 
        function initialize(){
 
-          var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
- 
+          var myLatlng = new google.maps.LatLng(38.917026, -77.029287);
+
+
         var mapOptions = {
             center: myLatlng,
-            zoom: 16,
+            zoom: 18,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
- 
+
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
- 
-        navigator.geolocation.getCurrentPosition(function(pos) {
-            map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-            var myLocation = new google.maps.Marker({
-                position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
-                map: map,
-                title: "My Location"
-            });
-        });
- 
-        $scope.map = map;
-        console.log("I AM ALIVE AND I AM CALLED");
+         var contentString = "<div><a ng-click='clickTest()'>{{bar.Name}}</a></div>";
+         var compiled = $compile(contentString)($scope);
+
+         var infowindow = new google.maps.InfoWindow({
+           content: compiled[0]
+         });
+
+         var marker = new google.maps.Marker({
+           position: myLatlng,
+           map: map,
+           title: 'Bars'
+         });
+
+         google.maps.event.addListener(marker, 'click', function() {
+           infowindow.open(map,marker);
+         });
+         $scope.map = map;
+
+
+
+
+
+
+
+
       };
      // $ionicPlatform.ready(initialize);
      $scope.initMap = function() {
         // your code here
         initialize();
       }
+    $scope.centerOnMe = function() {
+      initialize();
+      if(!$scope.map) {
+
+        return;
+      }
+
+      $scope.loading = $ionicLoading.show({
+        content: 'Getting current location...',
+        showBackdrop: false
+      });
+
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+        $scope.loading.hide();
+        var myLocation = new google.maps.Marker({
+          position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+          map: map,
+          title: "My Location"
+        });
+      }, function(error) {
+        alert('Unable to get location: ' + error.message);
+      });
+    };
+
      //google.maps.event.addDomListener(window, 'load', initialize);
 
-     
+
 
       //ionic.Platform.ready(initialize);
         //User rates the bar
