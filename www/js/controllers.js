@@ -63,67 +63,113 @@ angular.module('AppControllers', ['AppServices'])
         }
         populateList();
     })
-    .controller('detailCtrl', function ($scope, $ionicLoading, $state, $ionicSideMenuDelegate, ParseHttpService,$ionicPlatform) {
-        $scope.params = $state.params;
-        //console.log("I AM ALIVE AND I AM CALLED");
+  .controller('detailCtrl', function ($scope, $ionicLoading, $state, $ionicSideMenuDelegate, $compile, ParseHttpService,$ionicPlatform) {
+    $scope.params = $state.params;
+    //console.log("I AM ALIVE AND I AM CALLED");
 
-        $scope.openMenu = function() {  //open Side Menu Rating Stoplight
-            $ionicSideMenuDelegate.toggleRight();
-          };
+    $scope.openMenu = function() {  //open Side Menu Rating Stoplight
+      $ionicSideMenuDelegate.toggleRight();
+    };
 
-        ParseHttpService.getBarById($state.params.objectId).then(function(_data) {
-            console.log(_data);
-            $scope.bar = _data;
-        });
+    ParseHttpService.getBarById($state.params.objectId).then(function(_data) {
+      console.log(_data);
+      $scope.bar = _data;
+    });
     var options = {timeout: 10000, enableHighAccuracy: true};
 
-       function initialize(){
+    function initialize(){
 
-          var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
 
-        var mapOptions = {
-            center: myLatlng,
-            zoom: 16,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+      var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
 
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+      var mapOptions = {
+        center: myLatlng,
+        zoom: 18,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+      var contentString = "<div><a ng-click='clickTest()'>{{bar.Name}}</a></div>";
+      var compiled = $compile(contentString)($scope);
+
+      var infowindow = new google.maps.InfoWindow({
+        content: compiled[0]
+      });
+
+      var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: 'Bars'
+      });
+
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+      });
+      $scope.map = map;
 
         navigator.geolocation.getCurrentPosition(function(pos) {
-            map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-            var myLocation = new google.maps.Marker({
-                position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
-                map: map,
-                title: "My Location"
-            });
+          map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+          var myLocation = new google.maps.Marker({
+            position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+            map: map,
+            title: "My Location"
+          });
         });
 
-        $scope.map = map;
-        console.log("I AM ALIVE AND I AM CALLED");
-      };
-     // $ionicPlatform.ready(initialize);
-     $scope.initMap = function() {
-        // your code here
-        initialize();
+      $scope.map = map;
+      console.log("I AM ALIVE AND I AM CALLED");
+
+    };
+    // $ionicPlatform.ready(initialize);
+    $scope.initMap = function() {
+      // your code here
+      initialize();
+    }
+    $scope.centerOnMe = function() {
+      initialize();
+      if(!$scope.map) {
+
+        return;
       }
-     //google.maps.event.addDomListener(window, 'load', initialize);
+
+      $scope.loading = $ionicLoading.show({
+        content: 'Getting current location...',
+        showBackdrop: false
+      });
+
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+        $scope.loading.hide();
+        var myLocation = new google.maps.Marker({
+          position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+          map: map,
+          title: "My Location"
+        });
+      }, function(error) {
+        alert('Unable to get location: ' + error.message);
+      });
+    };
+
+    //google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
-      //ionic.Platform.ready(initialize);
-      $scope.barInfo = {
-        address: "901 U St NW, Washington, DC 20001",
-        phone: "(202) 560-5045",
-        website: "http://brixtondc.com/"
+    //ionic.Platform.ready(initialize);
+    $scope.barInfo = {
+      address: "901 U St NW, Washington, DC 20001",
+      phone: "(202) 560-5045",
+      website: "http://brixtondc.com/"
+    };
+    //User rates the bar
+    $scope.rateBar = function(_rating) {
+      var ratingObject = {
+        "barID": $scope.bar.objectId,
+        "userRating": _rating
       };
-        //User rates the bar
-        $scope.rateBar = function(_rating) {
-            var ratingObject = {
-                "barID": $scope.bar.objectId,
-                "userRating": _rating
-              };
-            ParseHttpService.rateBar(ratingObject);
-            $ionicSideMenuDelegate.toggleRight();   //close the side menue after rating
-        };
-    });
+      ParseHttpService.rateBar(ratingObject);
+      $ionicSideMenuDelegate.toggleRight();   //close the side menue after rating
+    };
+  });
 
