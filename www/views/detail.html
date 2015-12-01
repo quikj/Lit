@@ -16,23 +16,22 @@
           <div class="title">{{bar.Name}}</div>
         </div>
 
-          <ion-content ng-controller="detailCtrl">
-           <div style="visible:true; margin-left: 3%" id="map" data-tap-disabled="true" ng-init="initMap()"></div>
-            <div style="position: absolute; top:370px; margin-left: 3%; margin-right: 3%">
-              <ion-list class="transparent-background">
-                <ion-item class="item-text-wrap">
-                  {{barInfo.address}}
-                </ion-item>
-                <ion-item>
-                  {{barInfo.phone}}
-                </ion-item>
-                <ion-item>
-                  {{barInfo.website}}
-                </ion-item>
-              </ion-list>
-            </div>
-          </ion-content>
-
+        <ion-content ng-controller="detailCtrl">
+          <div style="visible:true; margin-top: 30px; margin-left: 3%" id="map" data-tap-disabled="true" ng-init="initMap()"></div>
+          <div style="margin-top: 5px; margin-left: 3%; margin-right: 3%">
+            <ion-list class="transparent-background">
+              <ion-item class="item-text-wrap">
+                {{barInfo.address}}
+              </ion-item>
+              <ion-item>
+                {{barInfo.phone}}
+              </ion-item>
+              <ion-item>
+                {{barInfo.website}}
+              </ion-item>
+            </ion-list>
+          </div>
+        </ion-content>
 
         <div id="myfooter" class="bar bar-footer" ng-class="{ 'stoph': bar.avgRating < 34, 'slowh' : bar.avgRating >= 34 && bar.avgRating < 67, 'goh' : bar.avgRating >=67 }">
           <div class="title">{{bar.Name}}</div>
@@ -64,9 +63,7 @@
       <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Get Current Location</a>
     </ion-footer-bar>
 
-
   </ion-side-menus>
-
 
 
 </ion-view>
