@@ -17,7 +17,20 @@
         </div>
 
           <ion-content ng-controller="detailCtrl">
-           <div style="visible:true" id="map" data-tap-disabled="true" ng-init="initMap()"></div>
+           <div style="visible:true; margin-left: 3%" id="map" data-tap-disabled="true" ng-init="initMap()"></div>
+            <div style="position: absolute; top:370px; margin-left: 3%; margin-right: 3%">
+              <ion-list class="transparent-background">
+                <ion-item class="item-text-wrap">
+                  {{barInfo.address}}
+                </ion-item>
+                <ion-item>
+                  {{barInfo.phone}}
+                </ion-item>
+                <ion-item>
+                  {{barInfo.website}}
+                </ion-item>
+              </ion-list>
+            </div>
           </ion-content>
 
 

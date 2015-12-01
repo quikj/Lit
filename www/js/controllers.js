@@ -79,8 +79,12 @@ angular.module('AppControllers', ['AppServices','ionic'])
 
        function initialize(){
 
+<<<<<<< HEAD
           var myLatlng = new google.maps.LatLng(38.917026, -77.029287);
 
+=======
+          var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
+>>>>>>> 8a181fe486419c7fb12e2c024b9f2787db1a38a0
 
         var mapOptions = {
             center: myLatlng,
@@ -89,6 +93,7 @@ angular.module('AppControllers', ['AppServices','ionic'])
         };
 
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+<<<<<<< HEAD
          var contentString = "<div><a ng-click='clickTest()'>{{bar.Name}}</a></div>";
          var compiled = $compile(contentString)($scope);
 
@@ -114,6 +119,20 @@ angular.module('AppControllers', ['AppServices','ionic'])
 
 
 
+=======
+
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+            var myLocation = new google.maps.Marker({
+                position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+                map: map,
+                title: "My Location"
+            });
+        });
+
+        $scope.map = map;
+        console.log("I AM ALIVE AND I AM CALLED");
+>>>>>>> 8a181fe486419c7fb12e2c024b9f2787db1a38a0
       };
      // $ionicPlatform.ready(initialize);
      $scope.initMap = function() {
@@ -150,6 +169,11 @@ angular.module('AppControllers', ['AppServices','ionic'])
 
 
       //ionic.Platform.ready(initialize);
+      $scope.barInfo = {
+        address: "901 U St NW, Washington, DC 20001",
+        phone: "(202) 560-5045",
+        website: "http://brixtondc.com/"
+      };
         //User rates the bar
         $scope.rateBar = function(_rating) {
             var ratingObject = {
