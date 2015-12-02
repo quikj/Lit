@@ -48,6 +48,34 @@ angular.module('AppControllers', ['AppServices'])
   })
   .controller('homeCtrl', function ($scope, $state, $timeout, $window, $ionicSlideBoxDelegate, ParseHttpService, CurrentUser) {
     $scope.barList = [];
+    var search_Results=[];
+    $scope.searchBar=function(query){
+      console.log(query);
+      if(query!=''){
+        ParseHttpService.getAllBars().then(function(success)
+
+        {
+          console.log(success);
+          var allBars = success.results;
+          console.log(allBars);
+          for (var i = 0; i < allBars.length; i++) {
+            var barName = allBars[i].Name;
+            console.log(i);
+            var found = barName.search(query);
+            if (found != -1) {
+              console.log(found);
+              console.log(allBars[i]);
+              search_Results.push(allBars[i]);
+            }
+          }
+          $scope.searchResults = search_Results;
+
+        });
+        }
+      }
+
+
+
     $scope.value = true;
     $scope.view = true;
     $scope.$on("$ionicView.enter",function(){    //performs these actoins upon loading the home page

@@ -9,9 +9,18 @@
           <div class="list list-inset">
             <label class="item item-input">
               <i class="icon ion-search placeholder-icon"></i>
-              <input type="text" placeholder="Find your favorite bar...">
-              <button class="button button-clear" ng-click="searchBar()">Search</button>
+              <input type="text" placeholder="Find your favorite bar..." ng-model="query">
+
             </label>
+            <button class="button button-clear" ng-click="searchBar(query)">Search</button>
+            <ion-list>
+            <ion-item ng-show="!view" ng-repeat="bar in searchResults track by bar.objectId" class="item-icon-right" ui-sref="app.detail({objectId: bar.objectId})">
+              <div style="text-transform:capitalize;">
+                {{bar.Name}}
+                <i class="icon ion-ios-flame" ng-class="{ 'stop': bar.avgRating < 34, 'slow' : bar.avgRating >= 34 && bar.avgRating < 67, 'go' : bar.avgRating >=67 }"></i>
+              </div>
+            </ion-item>
+            </ion-list>
           </div>
           <ul class="list">
             <li class="item item-toggle">

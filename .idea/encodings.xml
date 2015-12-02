@@ -3,5 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/www/js/controllers.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/views/detail.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/views/home.html" charset="UTF-8" />
   </component>
 </project>
