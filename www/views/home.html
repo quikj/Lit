@@ -1,50 +1,50 @@
 <ion-view hide-back-button="true" title="Lit {{thing}}" class="metal-background">
   <ion-nav-buttons side="right">
-    <button class="button">
-      Logout
+    <button ui-sref="app.profile" class="button icon-left ion-person profile">
+      Profile
     </button>
   </ion-nav-buttons>
-        <ion-content type ="list-inset">
-          <h1 align="center" class="light">U Street {{thing}}</h1>
-          <div class="list list-inset">
-            <label class="item item-input">
-              <i class="icon ion-search placeholder-icon"></i>
-              <input type="text" placeholder="Find your favorite bar...">
-              <button class="button button-clear" ng-click="searchBar()">Search</button>
-            </label>
+  <ion-content type ="list-inset">
+    <h1 align="center" class="light">U Street</h1>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Find your favorite bar...">
+        <button class="button button-clear" ng-click="searchBar()">Search</button>
+      </label>
+    </div>
+    <ul class="list">
+      <li class="item item-toggle">
+        Change View
+        <label class="toggle toggle-assertive">
+          <input type="checkbox" ng-model="view">
+          <div class="track">
+            <div class="handle"></div>
           </div>
-          <ul class="list">
-            <li class="item item-toggle">
-              Change View
-              <label class="toggle toggle-assertive">
-                <input type="checkbox" ng-model="view">
-                <div class="track">
-                  <div class="handle"></div>
-                </div>
-              </label>
+        </label>
 
-            </li>
-          </ul>
-            <ion-item ng-show="!view" ng-repeat="bar in barList track by bar.objectId" class="item-icon-right" ui-sref="app.detail({objectId: bar.objectId})">
-                <div style="text-transform:capitalize;">
-                    {{bar.Name}}
-                    <i class="icon ion-ios-flame" ng-class="{ 'stop': bar.avgRating < 34, 'slow' : bar.avgRating >= 34 && bar.avgRating < 67, 'go' : bar.avgRating >=67 }"></i>
-                </div>
-            </ion-item>
-            <ion-slide-box ng-show="view" on-slide-changed="slideChanged()" show-pager="false">
-              <ion-slide ng-repeat="bar in barList track by bar.objectId" ui-sref="app.detail({objectId: bar.objectId})">
-                <div class="card">
-                  <div class="item item-text-wrap item-icon-right">
-                    <div class="item item-divider" ng-class="{ 'stoph': bar.avgRating < 34, 'slowh' : bar.avgRating >= 34 && bar.avgRating < 67, 'goh' : bar.avgRating >=67 }"></div>
-                      <h1>{{bar.Name}}</h1>
-                      <i class="icon ion-ios-flame" style="font-size: 60px;position:absolute;top:-100px;right:40px;" ng-class="{ 'stop': bar.avgRating < 34, 'slow' : bar.avgRating >= 34 && bar.avgRating < 67, 'go' : bar.avgRating >=67 }"></i>
-                      <img ng-src="{{bar.picture.url}}" style="height:200px; padding: 5px 5px 5px 5px;">
-                    <div class="item item-divider" ng-class="{ 'stoph': bar.avgRating < 34, 'slowh' : bar.avgRating >= 34 && bar.avgRating < 67, 'goh' : bar.avgRating >=67 }"></div>
-                  </div>
-                </div>
-              </ion-slide>
-            </ion-slide-box>
-        </ion-content>
+      </li>
+    </ul>
+    <ion-item ng-show="!view" ng-repeat="bar in barList track by bar.objectId" class="item-icon-right" ui-sref="app.detail({objectId: bar.objectId})">
+      <div style="text-transform:capitalize;">
+        {{bar.Name}}
+        <i class="icon ion-ios-flame" ng-class="{ 'stop': bar.avgRating < 34, 'slow' : bar.avgRating >= 34 && bar.avgRating < 67, 'go' : bar.avgRating >=67 }"></i>
+      </div>
+    </ion-item>
+    <ion-slide-box ng-show="view" on-slide-changed="slideChanged()" show-pager="false">
+      <ion-slide ng-repeat="bar in barList track by bar.objectId" ui-sref="app.detail({objectId: bar.objectId})">
+        <div class="card">
+          <div class="item item-text-wrap item-icon-right">
+            <div class="item item-divider" ng-class="{ 'stoph': bar.avgRating < 34, 'slowh' : bar.avgRating >= 34 && bar.avgRating < 67, 'goh' : bar.avgRating >=67 }"></div>
+            <h1>{{bar.Name}}</h1>
+            <i class="icon ion-ios-flame" style="font-size: 60px;position:absolute;top:-100px;right:40px;" ng-class="{ 'stop': bar.avgRating < 34, 'slow' : bar.avgRating >= 34 && bar.avgRating < 67, 'go' : bar.avgRating >=67 }"></i>
+            <img ng-src="{{bar.picture.url}}" style="height:200px; padding: 5px 5px 5px 5px;">
+            <div class="item item-divider" ng-class="{ 'stoph': bar.avgRating < 34, 'slowh' : bar.avgRating >= 34 && bar.avgRating < 67, 'goh' : bar.avgRating >=67 }"></div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
 </ion-view>
 <!--
 <ion-item ng-repeat="bar in barList track by bar.objectId" class="item-icon-right" ui-sref="detail({objectId: bar.objectId})">

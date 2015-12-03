@@ -28,9 +28,13 @@ angular.module('AppServices',[])
                   headers: authenticationHeaders
                 };
                 var dataObject = {
+                  "first": _params.first,
+                  "last": _params.last,
+                  //"phone": _params.phone,
                   "username": _params.username,
                   "password": _params.password,
-                  "email": _params.email
+                  "email": _params.email,
+                  //"birthdate": _params.birthdate
                 };
                 var dataObjectString = JSON.stringify(dataObject);
               return $http.post(baseURL + 'classes/_User', dataObjectString, settings)

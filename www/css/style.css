@@ -5,6 +5,10 @@
 .stoph{background-color: red !important}
 .slowh{background-color: yellow !important}
 .goh{background-color: green !important}
+
+.profile{
+  color: white !important;
+}
 .menu-black{background-color: black !important}
 .black-back{
   background-color: black !important
@@ -32,7 +36,7 @@
 }
 
 #map {
-  width: 70%;
+  width: 94%;
   height: 60%;
   z-index: 4;
 }

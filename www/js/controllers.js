@@ -17,10 +17,15 @@ angular.module('AppControllers', ['AppServices'])
     })
     .controller('signupCtrl', function ($scope, $state, $timeout, ParseHttpService) {
         $scope.accountItem = {
+          first: "",
+          last: "",
           email: "",
+          phone: "",
           username: "",
-          password: ""
+          password: "",
+          birthdate: ""
         };
+
         $scope.createAccount = function () {
           ParseHttpService.createUser($scope.accountItem)
             .then(function accountCreated() {
@@ -46,7 +51,7 @@ angular.module('AppControllers', ['AppServices'])
 
 
     })
-    .controller('homeCtrl', function ($scope, $state, $timeout, $window, $ionicSlideBoxDelegate, ParseHttpService, CurrentUser) {
+    .controller('homeCtrl', function ($scope, $state, $timeout, $window, $ionicSlideBoxDelegate, $ionicSideMenuDelegate, ParseHttpService, CurrentUser) {
         $scope.barList = [];
         $scope.value = true;
         $scope.view = true;
@@ -54,6 +59,9 @@ angular.module('AppControllers', ['AppServices'])
           $ionicSlideBoxDelegate.update();
           populateList();
         });
+        $scope.openMenu = function() {  //open Side Menu Rating Stoplight
+          $ionicSideMenuDelegate.toggleLeft();
+        };
 
         //grab all bar names and display their current rating
         function populateList() {
@@ -62,6 +70,9 @@ angular.module('AppControllers', ['AppServices'])
             });
         }
         populateList();
+    })
+    .controller('profileCtrl', function ($scope, $state, $timeout, ParseHttpService, CurrentUser) {
+        $scope.user = CurrentUser.username;
     })
   .controller('detailCtrl', function ($scope, $ionicLoading, $state, $ionicSideMenuDelegate, $compile, ParseHttpService,$ionicPlatform) {
     $scope.params = $state.params;
@@ -78,49 +89,30 @@ angular.module('AppControllers', ['AppServices'])
     var options = {timeout: 10000, enableHighAccuracy: true};
 
     function initialize(){
-
-
-      var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
-
-
+      var myLatlng = new google.maps.LatLng(38.917026, -77.029287);
       var mapOptions = {
+        draggable: false,
+        scrollwheel: false,
         center: myLatlng,
         zoom: 18,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
-
       var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
       var contentString = "<div><a ng-click='clickTest()'>{{bar.Name}}</a></div>";
       var compiled = $compile(contentString)($scope);
-
       var infowindow = new google.maps.InfoWindow({
         content: compiled[0]
       });
-
       var marker = new google.maps.Marker({
         position: myLatlng,
         map: map,
         title: 'Bars'
       });
-
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map,marker);
       });
-      $scope.map = map;
-
-        navigator.geolocation.getCurrentPosition(function(pos) {
-          map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-          var myLocation = new google.maps.Marker({
-            position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
-            map: map,
-            title: "My Location"
-          });
-        });
 
       $scope.map = map;
-      console.log("I AM ALIVE AND I AM CALLED");
-
     };
     // $ionicPlatform.ready(initialize);
     $scope.initMap = function() {
@@ -145,6 +137,7 @@ angular.module('AppControllers', ['AppServices'])
         var myLocation = new google.maps.Marker({
           position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
           map: map,
+          zoom: 10,
           title: "My Location"
         });
       }, function(error) {
@@ -172,4 +165,3 @@ angular.module('AppControllers', ['AppServices'])
       $ionicSideMenuDelegate.toggleRight();   //close the side menue after rating
     };
   });
-
