@@ -1,52 +1,64 @@
 
-angular.module('AppControllers', ['AppServices'])
-  .controller('loginCtrl', function ($scope, $state, $sce, $timeout, ParseHttpService) {
-    $scope.loginImage = $sce.trustAsResourceUrl('img/light.jpeg');
-    $scope.credentials = {};
-    $scope.doLoginAction = function () {
-      ParseHttpService.login($scope.credentials).then(function (_user) {
-        $timeout(function () {
-          $state.go('app.home', {});
-          console.log("user", _user);
-        }, 2);
-
-      }, function (_error) {
-        alert("Login Error " + (_error.message ? _error.message : _error.data.error));
-      });
-    }
-  })
-  .controller('signupCtrl', function ($scope, $state, $timeout, ParseHttpService) {
-    $scope.accountItem = {
-      email: "",
-      username: "",
-      password: ""
-    };
-    $scope.createAccount = function () {
-      ParseHttpService.createUser($scope.accountItem)
-        .then(function accountCreated() {
-          alert('Account Created');
-          var credentials = {
-            username: $scope.accountItem.username,
-            password: $scope.accountItem.password
-          };
-          ParseHttpService.login(credentials).then(function (_user) {
+angular.module('AppControllers', ['AppServices','ionic','ngCordova'])
+    .controller('loginCtrl', function ($scope, $state, $sce, $timeout, $cordovaFacebook, ParseHttpService) {
+        $scope.loginImage = $sce.trustAsResourceUrl('img/light.jpeg');
+        $scope.credentials = {};
+        $scope.doLoginAction = function () {
+          ParseHttpService.login($scope.credentials).then(function (_user) {
             $timeout(function () {
               $state.go('app.home', {});
-              console.log("user", _user);
+             console.log("user", _user);
             }, 2);
 
           }, function (_error) {
             alert("Login Error " + (_error.message ? _error.message : _error.data.error));
           });
-          $scope.accountItem = {};
-        }, function justIncase(_error) {
-          $scope.accountItem = {};
-        });
-    }
+        }
+
+        $scope.login = function() {
+          $cordovaFacebook.login(["public_profile"]).then(function(data) {
+            console.log(data);
+            $state.go('app.home',{});
+          });
+        }
+    })
+    .controller('signupCtrl', function ($scope, $state, $timeout, ParseHttpService) {
+        $scope.accountItem = {
+          first: "",
+          last: "",
+          email: "",
+          phone: "",
+          username: "",
+          password: "",
+          birthdate: ""
+        };
+
+        $scope.createAccount = function () {
+          ParseHttpService.createUser($scope.accountItem)
+            .then(function accountCreated() {
+              alert('Account Created');
+              var credentials = {
+                username: $scope.accountItem.username,
+                password: $scope.accountItem.password
+              };
+              ParseHttpService.login(credentials).then(function (_user) {
+                $timeout(function () {
+                  $state.go('app.home', {});
+                  console.log("user", _user);
+                }, 2);
+
+              }, function (_error) {
+                alert("Login Error " + (_error.message ? _error.message : _error.data.error));
+              });
+              $scope.accountItem = {};
+            }, function justIncase(_error) {
+              $scope.accountItem = {};
+            });
+        }
 
 
-  })
-  .controller('homeCtrl', function ($scope, $state, $timeout, $window, $ionicSlideBoxDelegate, ParseHttpService, CurrentUser) {
+    })
+    .controller('homeCtrl', function ($scope, $state, $timeout, $window, $ionicSlideBoxDelegate, $ionicSideMenuDelegate, ParseHttpService, CurrentUser) {
     $scope.barList = [];
     var search_Results=[];
     $scope.searchBar=function(query){
@@ -71,8 +83,8 @@ angular.module('AppControllers', ['AppServices'])
           $scope.searchResults = search_Results;
 
         });
-        }
       }
+    }
 
 
 
@@ -91,6 +103,9 @@ angular.module('AppControllers', ['AppServices'])
     }
     populateList();
   })
+    .controller('profileCtrl', function ($scope, $state, $timeout, ParseHttpService, CurrentUser) {
+        $scope.user = CurrentUser.username;
+    })
   .controller('detailCtrl', function ($scope, $ionicLoading, $state, $ionicSideMenuDelegate, $compile, ParseHttpService,$ionicPlatform) {
     $scope.params = $state.params;
     //console.log("I AM ALIVE AND I AM CALLED");
@@ -108,6 +123,8 @@ angular.module('AppControllers', ['AppServices'])
     function initialize(){
       var myLatlng = new google.maps.LatLng(38.917026, -77.029287);
       var mapOptions = {
+        draggable: false,
+        scrollwheel: false,
         center: myLatlng,
         zoom: 18,
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -180,4 +197,3 @@ angular.module('AppControllers', ['AppServices'])
       $ionicSideMenuDelegate.toggleRight();   //close the side menue after rating
     };
   });
-
