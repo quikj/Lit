@@ -14,7 +14,7 @@
       </label>
       <button class="button button-clear" ng-click="searchBar(query)">Search</button>
       <ion-list>
-        <ion-item ng-show="!view" ng-repeat="bar in searchResults track by bar.objectId" class="item-icon-right" ng-href="#/detail/({objectId: bar.objectId})">
+        <ion-item ng-show="!view" ng-repeat="bar in searchResults track by bar.objectId" class="item-icon-right" ui-sref="app.detail({objectId: bar.objectId})">
           <div style="text-transform:capitalize;">
             {{bar.Name}}
             <i class="icon ion-ios-flame" ng-class="{ 'stop': bar.avgRating < 34, 'slow' : bar.avgRating >= 34 && bar.avgRating < 67, 'go' : bar.avgRating >=67 }"></i>
@@ -42,7 +42,6 @@
     </ion-item>
     <ion-slide-box ng-show="view" on-slide-changed="slideChanged()" show-pager="false">
       <ion-slide ng-repeat="bar in barList track by bar.objectId" ui-sref="app.detail({objectId: bar.objectId})">
-
         <div class="card">
           <div class="item item-text-wrap item-icon-right">
             <div class="item item-divider" ng-class="{ 'stoph': bar.avgRating < 34, 'slowh' : bar.avgRating >= 34 && bar.avgRating < 67, 'goh' : bar.avgRating >=67 }"></div>
