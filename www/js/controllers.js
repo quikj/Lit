@@ -72,7 +72,7 @@ angular.module('AppControllers', ['AppServices'])
         populateList();
     })
     .controller('profileCtrl', function ($scope, $state, $timeout, ParseHttpService, CurrentUser) {
-        $scope.user = CurrentUser.username;
+      $scope.user = CurrentUser;
     })
   .controller('detailCtrl', function ($scope, $ionicLoading, $state, $ionicSideMenuDelegate, $compile, ParseHttpService,$ionicPlatform) {
     $scope.params = $state.params;
