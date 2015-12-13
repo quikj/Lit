@@ -15,15 +15,30 @@
         <div id="myheader" class="bar bar-subheader" ng-class="{ 'stoph': bar.avgRating < 34, 'slowh' : bar.avgRating >= 34 && bar.avgRating < 67, 'goh' : bar.avgRating >=67 }">
           <div class="title">{{bar.Name}}</div>
         </div>
+
+        <ion-content class="has-header" ng-controller="detailCtrl">
+          <div style="visible:true; margin-top: 30px; margin-left: 3%; margin-right: 3%" id="map" data-tap-disabled="true" ng-init="initMap()"></div>
+          <button style="margin-left: 3%" ng-click="centerOnMe()" class="button icon-left ion-navigate button-dark">Get Current Location</button>
+          <div style="margin-top: 5px; margin-left: 3%; margin-right: 3%">
+            <ion-list class="transparent-background">
+              <ion-item ng-style="{'line-height': '10px'}" class="item-text-wrap">
+                {{barInfo.address}}
+              </ion-item>
+              <ion-item ng-style="{'line-height': '10px'}" class="item-text-wrap">
+                {{barInfo.phone}}
+              </ion-item>
+              <ion-item ng-style="{'line-height': '10px'}" class="item-text-wrap">
+                {{barInfo.website}}
+              </ion-item>
+            </ion-list>
+          </div>
+        </ion-content>
+
         <div id="myfooter" class="bar bar-footer" ng-class="{ 'stoph': bar.avgRating < 34, 'slowh' : bar.avgRating >= 34 && bar.avgRating < 67, 'goh' : bar.avgRating >=67 }">
           <div class="title">{{bar.Name}}</div>
         </div>
       </ion-nav-view>
-      <ion-content>
-        <div id="map" data-tap-disabled="true">
-          <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
-        </div>
-      </ion-content>
+
     </ion-pane>
 
     <ion-side-menu side="right">
@@ -45,9 +60,7 @@
         </div>
       </ion-content>
     </ion-side-menu>
-
   </ion-side-menus>
 
 
 </ion-view>
-
