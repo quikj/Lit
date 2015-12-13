@@ -1,4 +1,4 @@
-myApp = angular.module('Lit', ['ionic','AppControllers','uiGmapgoogle-maps', 'AppServices']);
+myApp = angular.module('Lit', ['ionic','AppControllers', 'AppServices', 'ngCordova']);
 
 myApp.config(function($stateProvider, $urlRouterProvider) {
 
@@ -42,6 +42,16 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             }
           }
         })
+      .state('app.profile', {
+        url: "/profile/",
+        templateUrl: "views/profile.html",
+        controller: "profileCtrl",
+        resolve: {
+          CurrentUser: function(resolvedUser){
+            return resolvedUser;
+          }
+        }
+      })
         .state('app.detail', {
             url: "/detail/:objectId",
             templateUrl: "views/detail.html",
