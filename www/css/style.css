@@ -5,6 +5,10 @@
 .stoph{background-color: red !important}
 .slowh{background-color: yellow !important}
 .goh{background-color: green !important}
+
+.profile{
+  color: white !important;
+}
 .menu-black{background-color: black !important}
 .black-back{
   background-color: black !important
@@ -27,6 +31,13 @@
 .larger {
   font-size: 150px;
 }
-.angular-google-map-container {
+.scroll {
   height: 100%;
 }
+
+#map {
+  width: 94%;
+  height: 60%;
+  z-index: 4;
+}
+
