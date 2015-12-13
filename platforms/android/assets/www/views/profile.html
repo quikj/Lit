@@ -1,0 +1,23 @@
+<ion-view title="Lit" class="metal-background">
+  <div id="myheader" class="bar bar-subheader dark">
+    <div class="title">{{user.username}}'s profile</div>
+  </div>
+  <ion-content class="has-header" padding="true">
+    <div style="position: relative; top: 40px">
+      <ion-list>
+        <ion-item>
+          Username: {{user.username}}
+        </ion-item>
+        <ion-item>
+          First name: {{user.first}}
+        </ion-item>
+        <ion-item>
+          Last name: {{user.last}}
+        </ion-item>
+        <ion-item>
+          Email: {{user.email}}
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-view>

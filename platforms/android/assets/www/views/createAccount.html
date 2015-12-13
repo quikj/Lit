@@ -1,0 +1,55 @@
+<ion-view title="Lit" class="metal-background">
+    <div id="myheader" class="bar bar-subheader">
+        <h2 class="title">Create Account</h2>
+    </div>
+    <ion-content padding="true" scroll="false" class="has-header">
+        <form class="list">
+            <ion-list>
+              <br>
+              <br>
+              <div class="row">
+                <div class="col">
+                  <label class="item item-input transparent-background">
+                    <input type="text" ng-model="accountItem.first" placeholder="First Name">
+                  </label>
+                </div>
+                <div class="col">
+                  <label class="item item-input transparent-background">
+                    <input type="text" ng-model="accountItem.last" placeholder="Last Name">
+                  </label>
+                </div>
+              </div>
+              <div style="margin-left: 10px; margin-right: 10px">
+                <label class="item item-input transparent-background">
+                    <input type="text" ng-model="accountItem.email" placeholder="Email">
+                </label>
+                <label class="item item-input transparent-background">
+                    <input type="text" ng-model="accountItem.phone" placeholder="Phone Number">
+                </label>
+                <label class="item item-input transparent-background">
+                    <input type="text" ng-model="accountItem.username" placeholder="Username">
+                </label>
+                <label class="item item-input transparent-background">
+                    <input type="password" ng-model="accountItem.password" placeholder="Password">
+                </label>
+                <h4 class="light">Date of Birth</h4>
+                <input type="date" ng-model="accountItem.birthdate">
+                <div class="row">
+                  <div class="col">
+                    <h4 class="light">Male</h4>
+                      <input type="radio" name="group">
+                      <i class="radio-icon ion-ios-checkmark"></i>
+                  </div>
+                  <div class="col">
+                    <h4 class="light">Female</h4>
+                    <input type="radio" name="group">
+                    <i class="radio-icon ion-ios-checkmark"></i>
+                  </div>
+                </div>
+              </div>
+
+            </ion-list>
+            <button ng-click="createAccount()" class="button button-stable button-block ">Sign up</button>
+        </form>
+    </ion-content>
+</ion-view><ion-item class="item-divider"></ion-item>
