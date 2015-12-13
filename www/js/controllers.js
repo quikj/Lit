@@ -102,7 +102,7 @@ angular.module('AppControllers', ['AppServices','ionic','ngCordova'])
     populateList();
   })
   .controller('profileCtrl', function ($scope, $state, $timeout, ParseHttpService, CurrentUser) {
-    $scope.user = CurrentUser.username;
+    $scope.user = CurrentUser;
   })
   .controller('detailCtrl', function ($scope, $ionicLoading, $state, $ionicSideMenuDelegate, $compile, ParseHttpService,$ionicPlatform) {
     var barId = $state.params.objectId;
@@ -121,37 +121,34 @@ angular.module('AppControllers', ['AppServices','ionic','ngCordova'])
 
     //console.log("Value is : ",$scope.bar);
     var options = {timeout: 10000, enableHighAccuracy: true};
+    var count=0;
 
     function initialize(){
       ParseHttpService.getBarById(barId).then(function(_data) {
+        var myLatlng = new google.maps.LatLng(_data.Latitude,_data.Longitude);
 
-        console.log("Value is , ",_data);
-        console.log("The average is : ",_data.avgRating);
-        console.log("Longitude is : ",_data.longitude);
-        var longitude=38.917219;
-        var latitude=-77.029277;
-        var myLatlng = new google.maps.LatLng(longitude,latitude);
-        var mapOptions = {
-          draggable: false,
-          scrollwheel: false,
-          center: myLatlng,
-          zoom: 18,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-        var contentString = "<div><a ng-click='clickTest()'>{{bar.Name}}</a></div>";
-        var compiled = $compile(contentString)($scope);
-        var infowindow = new google.maps.InfoWindow({
-          content: compiled[0]
+          var mapOptions = {
+            draggable: false,
+            scrollwheel: false,
+            center: myLatlng,
+            zoom: 19,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+
+          var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+          var contentString = "<div><a ng-click='clickTest()'>{{bar.Name}}</a></div>";
+          var compiled = $compile(contentString)($scope);
+          var infowindow = new google.maps.InfoWindow({content: compiled[0]
         });
-        var marker = new google.maps.Marker({
-          position: myLatlng,
-          map: map,
-          title: 'Bars'
-        });
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.open(map,marker);
-        });
+          var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'Bars'
+          });
+          google.maps.event.addListener(marker, 'click', function () {
+            infowindow.open(map, marker);
+          });
+
 
         $scope.map = map;
       });
@@ -164,6 +161,7 @@ angular.module('AppControllers', ['AppServices','ionic','ngCordova'])
       initialize();
     }
     $scope.centerOnMe = function() {
+
       initialize();
       if(!$scope.map) {
 
@@ -174,7 +172,6 @@ angular.module('AppControllers', ['AppServices','ionic','ngCordova'])
         content: 'Getting current location...',
         showBackdrop: false
       });
-
       navigator.geolocation.getCurrentPosition(function(pos) {
         $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
         $scope.loading.hide();
@@ -191,16 +188,22 @@ angular.module('AppControllers', ['AppServices','ionic','ngCordova'])
 
     //google.maps.event.addDomListener(window, 'load', initialize);
 
-
-
     //ionic.Platform.ready(initialize);
-    $scope.barInfo = {
-      address: "901 U St NW, Washington, DC 20001",
-      phone: "(202) 560-5045",
-      website: "http://brixtondc.com/"
-    };
+
+    ParseHttpService.getBarById(barId).then(function(_data) {
+      console.log("inside");
+      console.log("The address is : ",_data.address);
+      var location = _data.address.concat(" ",_data.Street," , ",_data.City," , ",_data.state," , ",_data.Zipcode);
+      $scope.barInfo = {
+
+
+      address:  location,
+        phone: _data.phonenumber
+      };
+    })
     //User rates the bar
     $scope.rateBar = function(_rating) {
+
       var ratingObject = {
         "barID": $scope.bar.objectId,
         "userRating": _rating

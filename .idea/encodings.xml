@@ -2,11 +2,16 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/www/js/controllers.js" charset="UTF-8" />
+<<<<<<< HEAD
     <file url="file://$PROJECT_DIR$/www/js/services.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/views/home.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../../Master/Lit/www/js/controllers.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../../Master/Lit/www/js/services.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../../Master/Lit/www/views/home.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../../Master/Lit/www/views/login.html" charset="UTF-8" />
+=======
+    <file url="file://$PROJECT_DIR$/www/views/detail.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/views/home.html" charset="UTF-8" />
+>>>>>>> Markers
   </component>
 </project>
